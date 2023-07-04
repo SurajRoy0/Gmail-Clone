@@ -1,10 +1,16 @@
 import React from 'react';
 import './App.css';
+import Header from './Components/Header/Header';
+import SideBar from './Components/SideBar/SideBar';
 
 function App() {
   return (
-    <div className="App">
-      Gmail
+    <div className="app">
+      <Header />
+      <div className="app__body">
+        <SideBar />
+      </div>
+
     </div>
   );
 }
