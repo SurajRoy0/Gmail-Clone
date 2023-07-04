@@ -1,0 +1,21 @@
+.email-list__setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid whitesmoke;
+}
+
+.email-list__setting svg {
+  font-size: 18px;
+}
+
+.email-list__setting-right {
+  display: flex;
+  align-items: center;
+}
+
+.email-list__setting-right p {
+  font-size: 13px;
+}

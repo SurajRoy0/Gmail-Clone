@@ -15,6 +15,7 @@
 .header_middle {
   display: flex;
   flex: 0.7;
+  margin-right: 200px;
 }
 
 .search-mail {
