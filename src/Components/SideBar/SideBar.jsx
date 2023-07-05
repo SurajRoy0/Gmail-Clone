@@ -18,11 +18,18 @@ import {
   WatchLater,
 } from "@material-ui/icons";
 import SideBarOptions from "./SideBarOptions";
+import { useDispatch } from "react-redux";
+import { composeOpenHandler } from "../../features/MailSilece";
 
 const SideBar = () => {
+  const dispatch = useDispatch();
   return (
     <div className={styles.sidebar}>
-      <Button startIcon={<Add />} className={styles["compose__btn"]}>
+      <Button
+        onClick={() => dispatch(composeOpenHandler())}
+        startIcon={<Add />}
+        className={styles["compose__btn"]}
+      >
         Compose
       </Button>
       <SideBarOptions Icon={Inbox} title="Inbox" number="225" isActive={true} />
