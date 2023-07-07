@@ -1,0 +1,51 @@
+.email {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid whitesmoke;
+  padding: 0 10px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.email:hover {
+  box-shadow: 2px 2px 4px rgb(165, 164, 164);
+}
+
+.email-left {
+  display: flex;
+  align-items: center;
+  min-width: 250px;
+  flex: 20%;
+}
+
+.email-left svg {
+  font-size: 18px;
+  color: gray;
+  margin-right: 6px;
+}
+
+.email-left h4 {
+  font-size: 14px;
+}
+
+.email-middle {
+  display: flex;
+  align-items: center;
+  flex: 70%;
+}
+.email-middle p {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 650px;
+}
+.email-right {
+  display: flex;
+  align-items: center;
+  flex: 10%;
+}
+
+.email-right p {
+  font-size: 12px;
+}

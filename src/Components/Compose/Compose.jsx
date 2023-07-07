@@ -16,13 +16,17 @@ import {
   AttachFile,
   Link,
 } from "@material-ui/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { composeCloseHandler } from "../../features/MailSilece";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { db } from "../../firebase/firebase";
-import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import "firebase/compat/auth";
+import {
+  sendEmailHandler,
+  sentRecordHandler,
+} from "../../firebase/HelperFunctions";
 
 const Compose = () => {
   const [to, setTo] = useState("");
@@ -31,36 +35,54 @@ const Compose = () => {
 
   const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.auth.user);
+
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     if (to === "") {
-      toast.error("Pease Enter Email", {
+      toast.error("Please Enter Email", {
         position: "top-right",
         theme: "colored",
       });
       return;
     }
     if (subject === "") {
-      toast.error("Pease Enter Subject", {
+      toast.error("Please Enter Subject", {
         position: "top-right",
         theme: "colored",
       });
       return;
     }
-
-    const res = await db.collection("emails").add({
+    const mail = {
       to,
+      from: user?.email,
+      fromName: user?.name,
+      photoURL: user?.photoURL,
       subject,
       message,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timestamp: new Date(),
+    };
+    const res = await sendEmailHandler({
+      toEmail: to,
+      mail: mail,
     });
-
     if (res.id) {
-      toast.success("Sent Successfully", {
-        position: "top-right",
-        theme: "colored",
+      const res = await sentRecordHandler({
+        fromEmail: user.email,
+        mail: mail,
       });
-      console.log("Document written with ID:", res.id);
+      if (res.id) {
+        toast.success("Sent Successfully", {
+          position: "top-right",
+          theme: "colored",
+        });
+      } else {
+        toast.error("Sending Failed!", {
+          position: "top-right",
+          theme: "colored",
+        });
+        console.error("Error adding document:", res);
+      }
     } else {
       toast.error("Sending Failed!", {
         position: "top-right",
@@ -92,13 +114,13 @@ const Compose = () => {
           <div className={styles["compose-body__form"]}>
             <input
               type="email"
-              placeholder="Reciepents"
+              placeholder="Recipients"
               value={to}
               onChange={(e) => setTo(e.target.value)}
             />
             <input
               type="text"
-              placeholder="subject"
+              placeholder="Subject"
               value={subject}
               onChange={(e) => setsubject(e.target.value)}
             />

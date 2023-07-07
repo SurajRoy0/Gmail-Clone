@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Email.module.css";
+import styles from "./SentEmail.module.css";
 import {
   CheckBoxOutlineBlank,
   LabelOutlined,
@@ -8,7 +8,7 @@ import {
 import { Link } from "react-router-dom";
 const Email = ({ userEmailOrName, subject, message, time, id }) => {
   return (
-    <Link to={`/emails/${id}`} className={styles.email}>
+    <Link to={`/sent/${id}`} className={styles.email}>
       <div className={styles["email-left"]}>
         <CheckBoxOutlineBlank />
         <StarBorder />

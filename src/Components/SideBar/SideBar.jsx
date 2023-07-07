@@ -6,7 +6,6 @@ import {
   Add,
   Delete,
   Drafts,
-  ExpandMore,
   FindInPage,
   Inbox,
   Keyboard,
@@ -23,6 +22,7 @@ import { composeOpenHandler } from "../../features/MailSilece";
 
 const SideBar = () => {
   const dispatch = useDispatch();
+
   return (
     <div className={styles.sidebar}>
       <Button
@@ -32,20 +32,65 @@ const SideBar = () => {
       >
         Compose
       </Button>
-      <SideBarOptions Icon={Inbox} title="Inbox" number="225" isActive={true} />
-      <SideBarOptions Icon={StarRate} title="Starred" number="225" />
-      <SideBarOptions Icon={WatchLater} title="Snoozed" number="225" />
-      <SideBarOptions Icon={LabelImportant} title="Important" number="225" />
-      <SideBarOptions Icon={Send} title="Sent" number="225" />
-      <SideBarOptions Icon={Drafts} title="Drafts" number="225" />
-      <SideBarOptions Icon={Label} title="Category" number="225" />
-      <SideBarOptions Icon={Delete} title="[Map]/Trash" number="225" />
-      <SideBarOptions Icon={FindInPage} title="Documents" number="225" />
-      <SideBarOptions Icon={ExpandMore} title="More" number="225" />
+      <SideBarOptions Icon={Inbox} title="Inbox" number="225" pathTo="/" />
+      <SideBarOptions
+        Icon={StarRate}
+        title="Starred"
+        number="225"
+        pathTo="starred"
+      />
+      <SideBarOptions
+        Icon={WatchLater}
+        title="Snoozed"
+        number="225"
+        pathTo="snoozed"
+      />
+      <SideBarOptions
+        Icon={LabelImportant}
+        title="Important"
+        number="225"
+        pathTo="/important"
+      />
+      <SideBarOptions Icon={Send} title="Sent" number="225" pathTo="/sent" />
+      <SideBarOptions
+        Icon={Drafts}
+        title="Drafts"
+        number="225"
+        pathTo="/drafts"
+      />
+      <SideBarOptions
+        Icon={Label}
+        title="Category"
+        number="225"
+        pathTo="/category"
+      />
+      <SideBarOptions
+        Icon={Delete}
+        title="[Map]/Trash"
+        number="225"
+        pathTo="/trash"
+      />
+      <SideBarOptions
+        Icon={FindInPage}
+        title="Documents"
+        number="225"
+        pathTo="/documents"
+      />
+
       <hr className={styles["horizontal-line"]} />
       <h3 className={styles["sidebar-options__heading"]}>Meet</h3>
-      <SideBarOptions Icon={Videocam} title="New meeting" number="225" />
-      <SideBarOptions Icon={Keyboard} title="Join a meeting" number="225" />
+      <SideBarOptions
+        Icon={Videocam}
+        title="New meeting"
+        number="225"
+        pathTo="/meeting"
+      />
+      <SideBarOptions
+        Icon={Keyboard}
+        title="Join a meeting"
+        number="225"
+        pathTo="/join-meeting"
+      />
     </div>
   );
 };

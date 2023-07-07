@@ -7,8 +7,12 @@ import AppsIcon from "@material-ui/icons/Apps";
 
 import logo from "../../Assets/gmail-logo.png";
 import styles from "./Header.module.css";
+import { signOut } from "../../features/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
   return (
     <div className={styles.header}>
       <div className={styles["header__left"]}>
@@ -38,7 +42,10 @@ const Header = () => {
         <IconButton>
           <AppsIcon />
         </IconButton>
-        <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXyOzKHsoAHGZVjCBBevzs3xCDSSZ3pmJVN1-TyCoZXJITgbDYIlIun9WfMJAOsPFDp0o&usqp=CAU" />
+        <Avatar src={user.photoURL} />
+        <button onClick={() => dispatch(signOut())} className={styles.logout}>
+          Log Out
+        </button>
       </div>
     </div>
   );

@@ -1,36 +1,32 @@
 import React, { useEffect, useState } from "react";
-import styles from "./EmailList.module.css";
+import styles from "./SentEmails.module.css";
 import EmailListSetting from "./EmailListSetting";
-import EmailType from "./EmailType";
-import Email from "./Email";
-import { db } from "../../firebase/firebase";
-import { inboxEmailsHandler } from "../../firebase/HelperFunctions";
+import SentEmail from "./SentEmail";
 import { useSelector } from "react-redux";
-const EmailList = () => {
+import { sentBoxEmailsHandler } from "../../firebase/HelperFunctions";
+const SentEmails = () => {
   const [emails, setEmails] = useState([]);
 
   const user = useSelector((state) => state.auth.user);
+  const fun = async () => {
+    const mails = await sentBoxEmailsHandler(user.email);
+    setEmails(mails);
+  };
 
   useEffect(() => {
-    const fun = async () => {
-      const mails = await inboxEmailsHandler(user.email);
-      setEmails(mails);
-    };
     fun();
   }, []);
-
   return (
     <div className={styles["email-list"]}>
       <EmailListSetting />
-      <EmailType />
       {emails.map(({ id, data }) => {
         let time = new Date(
           data.timestamp?.seconds * 1000
         ).toLocaleTimeString();
         return (
-          <Email
+          <SentEmail
             key={id}
-            userEmailOrName={data.fromName}
+            userEmailOrName={data.to}
             subject={data.subject}
             message={data.message}
             time={time}
@@ -42,4 +38,4 @@ const EmailList = () => {
   );
 };
 
-export default EmailList;
+export default SentEmails;
